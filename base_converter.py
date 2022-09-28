@@ -7,9 +7,10 @@ def convertToBaseTen(number, fromBase):
         return number
 
     # Convert to base 10
-    base10 = 0
+    base10 = 0 #
     string = ''
-    for i, digit in enumerate(reversed(str(number))):
+    for i in range(len(list(str(number))[::-1])):
+        digit = list(str(number))[::-1][i]
         string += digit + '*' + str(fromBase) + '^' + str(i) + ' + '
         base10 += int(digit) * (int(fromBase) ** i)
     return {'result': int(base10), 'operation': string[:-3]}
@@ -31,8 +32,8 @@ def base(number, fromBase, toBase):
         baseTenConverted = convertToBaseTen(number, fromBase)
 
 
-    if toBase == 10:
-        return baseTenConverted['operation'] + ' = ' + str(baseTenConverted['result'])
+    if int(toBase) == 10:
+        return str(baseTenConverted['operation']) + ' = ' + str(baseTenConverted['result'])
 
     baseTenTwo = baseTenConverted['result']
 
@@ -47,11 +48,12 @@ def base(number, fromBase, toBase):
         string += str(baseTenTwo) + '/' + str(toBase) + ' = ' + str(baseTenTwo // int(toBase)) + ' reste ' + str(baseTenTwo % int(toBase)) + ' + '
 
     ## Add a space every 4 digits in newNumber
-    for i, digit in enumerate(reversed(newNumber)):
+    for i in range(len(list(str(newNumber))[::-1])):
+        digit = list(str(newNumber))[::-1][i]
         if i % 4 == 0 and i != 0:
             strNumber = ' ' + strNumber
         strNumber = digit + strNumber
 
-    return string[:-2] + ' = ' + strNumber
+    return strNumber + ' = ' + string[:-2]
 
 print(base(nb, baseDuNb, baseSouhaitee))
